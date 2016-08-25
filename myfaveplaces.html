@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fave Places</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+        width: 80%;
+        float: left;
+      }
+      #list {
+        height: 100%;
+        margin-left: 80%;
+        padding: 1em;
+        background-color: #EEE;
+        font-family: verdana;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="list">
+      <h1>Fave Places</h1>
+      <form>
+        <input type="checkbox" name="toronto" checked>Toronto<br>
+        <input type="checkbox" name="fugo" checked>Fugo<br>
+        <input type="checkbox" name="stlawrence" checked>St. Lawrence market<br>
+        <input type="checkbox" name="yorkville" checked>Yorkville<br>
+        <input type="checkbox" name="kensington" checked>Kensington Market<br>
+      </form>
+    </div>
+    <script>
+      function initMap() {
+        var toronto = {lat: 43.652581, lng:-79.382274}
+        var fugo = {lat: 43.654850, lng: -79.387403}
+        var stlawrence = {lat: 43.648668, lng: -79.371556}
+        var yorkville = {lat: 43.670978, lng: -79.391958}
+        var kensington = {lat: 43.654788, lng: -79.400196}
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: toronto
+        });
+
+        var torontocontent = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Toronto</h1>'+
+            '<div id="bodyContent">'+
+            '<p>teee doooot</p>'+
+            '</div>'+
+            '</div>';
+        var fugocontent = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Fugo</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Fugo Icecream yummmms</p>'+
+            '</div>'+
+            '</div>';
+        var stlawrencecontent = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">St. Lawrence Market</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Big awesome indoor market with lotsa food!</p>'+
+            '</div>'+
+            '</div>';
+        var yorkvillecontent = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Yorkville</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Cute lil town with cute buildings and cute shops</p>'+
+            '</div>'+
+            '</div>';
+        var kensingtoncontent = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Kensington Market</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Outdoor market with an interesting artsy vibe</p>'+
+            '</div>'+
+            '</div>';
+
+        var torontowindow = new google.maps.InfoWindow({
+          content: torontocontent
+        });
+        var fugowindow = new google.maps.InfoWindow({
+          content: fugocontent
+        });
+        var stlawrencewindow = new google.maps.InfoWindow({
+          content: stlawrencecontent
+        });
+        var yorkvillewindow = new google.maps.InfoWindow({
+          content: yorkvillecontent
+        });
+        var kensingtonwindow = new google.maps.InfoWindow({
+          content: kensingtoncontent
+        });
+
+
+        var torontomarker = new google.maps.Marker({
+          position: toronto,
+          map: map,
+          title: 'My Marker!!',
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        torontomarker.addListener('click', function() {
+          torontowindow.open(map, torontomarker);
+        });
+        var fugomarker = new google.maps.Marker({
+          position: fugo,
+          map: map,
+          title: 'My Marker!!',
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        fugomarker.addListener('click', function() {
+          fugowindow.open(map, fugomarker);
+        });
+        var stlawrencemarker = new google.maps.Marker({
+          position: stlawrence,
+          map: map,
+          title: 'My Marker!!',
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        stlawrencemarker.addListener('click', function() {
+          stlawrencewindow.open(map, stlawrencemarker);
+        });
+        var yorkvillemarker = new google.maps.Marker({
+          position: yorkville,
+          map: map,
+          title: 'My Marker!!',
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        yorkvillemarker.addListener('click', function() {
+          yorkvillewindow.open(map, yorkvillemarker);
+        });
+        var kensingtonmarker = new google.maps.Marker({
+          position: kensington,
+          map: map,
+          title: 'My Marker!!',
+          draggable: true,
+          animation: google.maps.Animation.DROP
+        });
+        kensingtonmarker.addListener('click', function() {
+          kensingtonwindow.open(map, kensingtonmarker);
+        });
+
+        $('input[name=toronto]').on('click', function(){
+          if(this.checked) {
+            torontomarker.setVisible(true);
+          } else {
+            torontomarker.setVisible(false);
+          }
+        });
+        $('input[name=fugo]').on('click', function(){
+          if(this.checked) {
+            fugomarker.setVisible(true);
+          } else {
+            fugomarker.setVisible(false);
+          }
+        });
+        $('input[name=stlawrence]').on('click', function(){
+          if(this.checked) {
+            stlawrencemarker.setVisible(true);
+          } else {
+            stlawrencemarker.setVisible(false);
+          }
+        });
+        $('input[name=yorkville]').on('click', function(){
+          if(this.checked) {
+            yorkvillemarker.setVisible(true);
+          } else {
+            yorkvillemarker.setVisible(false);
+          }
+        });
+        $('input[name=kensington]').on('click', function(){
+          if(this.checked) {
+            kensingtonmarker.setVisible(true);
+          } else {
+            kensingtonmarker.setVisible(false);
+          }
+        });
+
+      }
+
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCzdnL0wo1jSUROsLCU1INg4VYPQ4un2w&callback=initMap"
+    async defer></script>
+  </body>
+</html>
